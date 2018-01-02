@@ -7,7 +7,6 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import ScreenManager, Screen
 import math
 
-#For debug: "/Library/Frameworks/Python.framework/Versions/3.6/bin/python3"
 def sign(x): return 1 if x >= 0 else -1
 
 class Point:
@@ -43,9 +42,8 @@ class PongBall(Widget):
     velocity = ReferenceListProperty(velocity_x, velocity_y)
 
     def move(self):
-        vx, vy = Vector(self.velocity) 
-        self.center_x = vx + self.center_x
-        self.center_y = vy + self.center_y
+        self.pos = Vector(*self.velocity) + self.pos
+
 
 class PongGame(Screen):
     ball = ObjectProperty(None)
@@ -114,6 +112,7 @@ class PongGame(Screen):
                     self.player2.center_y += sign(self.movesteps) * 10
                     self.movesteps -= 1*sign(self.movesteps)
 
+
         # bounce of paddles
         if self.player1.bounce_ball(self.ball):
             self.p1, self.p2 = None, None
@@ -126,15 +125,14 @@ class PongGame(Screen):
             self.p1, self.p2 = None, None
 
         # went of to a side to score point?
-        if self.startgame:
-            if self.ball.x < self.player1.x:
-                self.player2.score += 1
-                self.serve_ball(vel=(4, 0))
-                self.startgame = False
-            if self.ball.x > self.player2.x:
-                self.player1.score += 1
-                self.serve_ball(vel=(-4, 0))
-                self.startgame = False
+        if self.ball.x < self.x:
+            self.player2.score += 1
+            self.serve_ball(vel=(4, 0))
+            self.startgame = False
+        if self.ball.x > self.width:
+            self.player1.score += 1
+            self.serve_ball(vel=(-4, 0))
+            self.startgame = False
 
     def on_touch_move(self, touch):
         if touch.x < self.width / 3:

@@ -1,13 +1,20 @@
 <PongBall>:
-    canvas:      
+    size: 35, 35 
+    canvas:
+        Color:
+            rgba: .5, .5, .9, .9        
         Ellipse:
             pos: self.pos
-            size: self.size 
+            size: self.size
+
+
 <PongPaddle>:
-    canvas:        
+    size: 30, 200
+    canvas:      
         Rectangle:
-            pos: self.pos
-            size: self.size 
+            pos:self.pos
+            size:self.size
+
 
 <PongGame>:
     ball: pong_ball
@@ -18,8 +25,8 @@
     
     canvas:
         Rectangle:
-            pos: root.center_x, 0
-            size: 2, root.height
+            pos: self.center_x-5, 0
+            size: 2, self.height
         Line:
             width: 3
             circle: (self.center_x, self.center_y, min(self.width, self.height)/ 5, 0, 360)
@@ -27,47 +34,44 @@
     Label:
         id: player1lbl
         font_size: 30  
-        center_x: self.width / 5
-        top: (self.height + self.height*0.40)
+        center_x: root.width / 4
+        top: root.top - root.top * 0.05
         text: "Player 1"
         color: (.1, .1, .9,.9)
 
     Label:
         font_size: 50  
-        center_x: self.width / 5
-        top: (self.height + self.height*0.35)
+        center_x: root.width / 4
+        top: root.top - root.top * 0.1
         text: str(root.player1.score)
         color: (.1, .1, .9,.9)
 
     Label:
         font_size: 50  
-        center_x: self.width * 4/ 5
-        top: (self.height + self.height*0.35)
+        center_x: root.width * 3 / 4
+        top: root.top - root.top * 0.1
         text: str(root.player2.score)
         color: (.9, .1, .1,.9)
 
     Label:
         id: player2lbl
         font_size: 30  
-        center_x: self.width * 4/ 5
-        top: (self.height + self.height*0.40)
+        center_x: root.width * 3 / 4
+        top: root.top - root.top * 0.05
         text: "Player 2"
         color: (.9, .1, .1,.9)
     
     PongBall:
         id: pong_ball
-        size_hint: .025, .035
-        center_x: root.center_x-25
-        center_y: root.center_y 
+        center: self.parent.center
 
     PongPaddle: 
         id: player_left
-        size_hint: .020, .15
-        center_x: root.x + 55
-        center_y: root.center_y - 85
+        x: root.x
+        center_y: root.center_y
         
     PongPaddle:
         id: player_right
-        size_hint: .020, .15
-        center_x: root.width - 50
-        center_y: root.center_y - 85
+        x: root.width-self.width
+        center_y: root.center_y
+        

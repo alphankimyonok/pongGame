@@ -1,0 +1,28 @@
+<menu>:
+    txt: txtinput
+    submit: submitbutton
+    TextInput:
+        id: txtinput
+        font_size: 30  
+        right: root.x + 450
+        center_y: root.top - 140
+        width: 220
+        height: 50
+        text: "Player1"
+        multiline: False
+    Label:
+        font_size: 30  
+        right: root.x + 200
+        center_y: root.top - 140
+        width: 220
+        height: 50
+        text: "Adınızı Girin Lütfen:"
+    Button:
+        id: submitbutton
+        font_size: 30  
+        right: root.x + 450
+        center_y: root.top - 300
+        width: 220
+        height: 50
+        on_press: root.returnvalues()
+        text: "OYUNA BAŞLA"
